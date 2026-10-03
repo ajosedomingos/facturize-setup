@@ -1,0 +1,50 @@
+name: Gerar Facturize para macOS
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "desktop-v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build-macos:
+    name: DMG e ZIP universal
+    runs-on: macos-14
+    timeout-minutes: 30
+
+    env:
+      # A assinatura será activada quando os certificados Apple Developer
+      # forem adicionados aos secrets do repositório.
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
+    steps:
+      - name: Obter o código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Instalar dependências
+        run: yarn install --frozen-lockfile
+
+      - name: Gerar aplicação macOS
+        run: yarn build:mac
+
+      - name: Disponibilizar DMG e ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Facturize-macOS-universal
+          path: |
+            dist/*.dmg
+            dist/*.zip
+            dist/*.blockmap
+          if-no-files-found: error
+          retention-days: 30
+

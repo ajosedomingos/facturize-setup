@@ -1,0 +1,80 @@
+{
+  "name": "facturize-desktop",
+  "version": "2.0.0",
+  "description": "Aplicação desktop Facturize",
+  "main": "main.js",
+  "author": "José Domingos António",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "dev": "nodemon --exec electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder --win nsis --x64",
+    "build:win": "electron-builder --win nsis --x64",
+    "build:mac": "electron-builder --mac dmg zip --universal",
+    "build:all": "electron-builder --win nsis --x64 --mac dmg zip --universal"
+  },
+  "dependencies": {
+    "node-thermal-printer": "^4.6.0"
+  },
+  "devDependencies": {
+    "electron": "^43.1.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "net.facturize.app",
+    "productName": "Facturize",
+    "executableName": "Facturize",
+    "artifactName": "Facturize-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "assets/**/*"
+    ],
+    "win": {
+      "icon": "assets/facturize-logo.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "icon": "assets/facturize-logo.png",
+      "category": "public.app-category.business",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["universal"]
+        },
+        {
+          "target": "zip",
+          "arch": ["universal"]
+        }
+      ]
+    },
+    "dmg": {
+      "title": "Facturize ${version}",
+      "artifactName": "Facturize-${version}-mac-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Facturize",
+      "installerIcon": "assets/facturize-logo.ico",
+      "uninstallerIcon": "assets/facturize-logo.ico"
+    }
+  }
+}
