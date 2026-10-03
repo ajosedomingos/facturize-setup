@@ -18,6 +18,8 @@ O instalador será criado em `dist/Facturize-2.0.0-win-x64.exe`.
 4. Clique em **Run workflow**.
 5. Quando terminar, abra a execução e descarregue o artefacto **Facturize-macOS-universal**.
 
+O workflow apenas gera e guarda os instaladores nos artefactos do GitHub Actions; ele não tenta criar automaticamente uma Release do GitHub.
+
 Também é possível iniciar a compilação criando uma tag com o prefixo `desktop-v`:
 
 ```bash
@@ -30,4 +32,3 @@ O artefacto contém um DMG e um ZIP universais, compatíveis com Macs Intel e Ap
 ## Assinatura Apple
 
 O workflow gera inicialmente uma aplicação sem assinatura. Para distribuição pública sem o aviso do Gatekeeper, é necessário configurar um certificado Apple Developer e a notarização da aplicação.
-

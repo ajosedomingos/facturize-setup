@@ -11,8 +11,8 @@
     "pack": "electron-builder --dir",
     "build": "electron-builder --win nsis --x64",
     "build:win": "electron-builder --win nsis --x64",
-    "build:mac": "electron-builder --mac dmg zip --universal",
-    "build:all": "electron-builder --win nsis --x64 --mac dmg zip --universal"
+    "build:mac": "electron-builder --mac dmg zip --universal --publish never",
+    "build:all": "electron-builder --win nsis --x64 --mac dmg zip --universal --publish never"
   },
   "dependencies": {
     "node-thermal-printer": "^4.6.0"
